@@ -34,11 +34,19 @@ public class Main {
         student.setProgram("Criminology");
 
 
-
         System.out.println("Student ID: " + student.getStudentID());
         System.out.println("Student Name: " + student.getStudentName());
         System.out.println("Program: " + student.getProgram());
 
         System.out.println();
+
+        Course course = new Course();
+        course.setCourseID("001");
+        course.setCourseName("InteProg");
+        course.setCourseProgram("Information Technology");
+
+        System.out.println("Course ID: " + course.getCourseID());
+        System.out.println("Course Name: " + course.getCourseName());
+        System.out.println("Course Program: " + course.getCourseProgram());
     }
 }
