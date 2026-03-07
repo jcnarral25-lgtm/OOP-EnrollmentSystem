@@ -11,7 +11,6 @@ public class Student extends Person {
         super(id, name);
         this.program = program;
     }
-
     public String getProgram() {
         return program;
     }
