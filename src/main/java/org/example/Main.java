@@ -29,7 +29,7 @@ public class Main {
                     String name = sc.nextLine();
                     System.out.print("Enter Program: ");
                     String prog = sc.nextLine();
-                    sReg.saveStudent(new Student(id, name, prog));
+                    sReg.saveStudent(new Student());
                     break;
 
                 case 2: // Read
