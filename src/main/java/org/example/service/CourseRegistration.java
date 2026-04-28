@@ -3,51 +3,34 @@ package org.example.service;
 import org.example.model.Course;
 import java.util.ArrayList;
 
-public class CourseRegistration {
+public class CourseRegistration implements IRegistrationService<Course> {
     private ArrayList<Course> courseList = new ArrayList<>();
 
-    // Create
+    @Override
     public void save(Course c) {
         courseList.add(c);
-        System.out.println("Course saved successfully!");
+        System.out.println("Course added.");
     }
 
-    // Read
+    @Override
     public void displayAll() {
-        if (courseList.isEmpty()) {
-            System.out.println("No courses registered.");
-            return;
-        }
-        for (int i = 0; i < courseList.size(); i++) {
-            Course c = courseList.get(i);
-            System.out.println("Course ID: " + c.getCourseID());
-            System.out.println("Course Name: " + c.getCourseName());
-            System.out.println("Program: " + c.getProgram());
-            System.out.println("-------------------------");
+        for (Course c : courseList) {
+            System.out.println(c.getCourseID() + ": " + c.getCourseName());
         }
     }
 
-    // Update
-    public void updateCourse(String id, String newName) {
-        for (int i = 0; i < courseList.size(); i++) {
-            if (courseList.get(i).getCourseID().equals(id)) {
-                courseList.get(i).setCourseName(newName);
-                System.out.println("Course updated!");
+    @Override
+    public void update(String id, String newName) {
+        for (Course c : courseList) {
+            if (c.getCourseID().equals(id)) {
+                c.setCourseName(newName);
                 return;
             }
         }
-        System.out.println("Course ID not found.");
     }
 
-    // Delete
-    public void removeCourse(String id) {
-        for (int i = 0; i < courseList.size(); i++) {
-            if (courseList.get(i).getCourseID().equals(id)) {
-                courseList.remove(i);
-                System.out.println("Course removed!");
-                return;
-            }
-        }
-        System.out.println("Course ID not found.");
+    @Override
+    public void remove(String id) {
+        courseList.removeIf(c -> c.getCourseID().equals(id));
     }
 }

@@ -3,56 +3,36 @@ package org.example.service;
 import org.example.model.Student;
 import java.util.ArrayList;
 
-public class StudentRegistration {
+public class StudentRegistration implements IRegistrationService<Student> {
     private ArrayList<Student> studentList = new ArrayList<>();
 
-    // Create
-    public void saveStudent(Student s) {
+    @Override
+    public void save(Student s) {
         studentList.add(s);
-        System.out.println("Student saved successfully!");
+        System.out.println("Student added.");
     }
 
-    // Read
-    public void displayAllStudent() {
-        if (studentList.isEmpty()) {
-            System.out.println("No records found in the system.");
-            return;
-        }
-        System.out.println("\n--- Registered Students ---");
+    @Override
+    public void displayAll() {
         for (Student s : studentList) {
-            // FIX: Call getID() then print it. No arguments needed.
-            System.out.println("ID: " + s.getID() + " | Name: " + s.getName() + " | Program: " + s.getProgram());
+            System.out.println(s.getID() + " | " + s.getName() + " | " + s.getRole());
         }
     }
 
-    // Update
-    public void updateStudent(String id, String newName, String newProg) {
-        boolean found = false;
+    @Override
+    public void update(String id, String newName) {
         for (Student s : studentList) {
-            // FIX: Get the ID from the student, then check if it equals the 'id' parameter
-            if (s.getID() != null && s.getID().equals(id)) {
+            if (s.getID().equals(id)) {
                 s.setName(newName);
-                s.setProgram(newProg);
-                System.out.println("Student updated successfully!");
-                found = true;
-                break;
+                System.out.println("Updated.");
+                return;
             }
         }
-        if (!found) System.out.println("Student ID not found.");
     }
 
-    // Delete
-    public void removeStudent(String id) {
-        boolean found = false;
-        for (int i = 0; i < studentList.size(); i++) {
-            // FIX: Use .equals() to compare the strings correctly
-            if (studentList.get(i).getID().equals(id)) {
-                studentList.remove(i);
-                System.out.println("Student removed from system.");
-                found = true;
-                break;
-            }
-        }
-        if (!found) System.out.println("Student ID not found.");
+    @Override
+    public void remove(String id) {
+        studentList.removeIf(s -> s.getID().equals(id));
+        System.out.println("Removed.");
     }
 }
